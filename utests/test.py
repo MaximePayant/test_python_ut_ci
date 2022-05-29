@@ -8,5 +8,6 @@ from main import *
 def test_one():
     assert func(1) == 2
     assert func(1) == 3
+    assert func(2) == 3
 
 test_one()
