@@ -16,5 +16,5 @@ UTEST_PATH="./utests/"
 UTEST_FILE="test.py"
 
 cd $UTEST_PATH
-pytest $UTEST_FILE --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+pytest $UTEST_FILE --cov=com --cov-report=xml --cov-report=html
 cd ..
