@@ -1,0 +1,6 @@
+# Unit Test
+*.pytest_cache
+__pycache__
+
+# IDE
+.vscode
