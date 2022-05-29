@@ -36,7 +36,7 @@ jobs:
            pip install pytest-cov
     - name: Start Unit Test
       run: |
-        utests.sh
+        ./utests.sh
     - name: Upload Unit Test results
       uses: actions/upload-artifact@v3
       with:
