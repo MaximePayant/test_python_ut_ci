@@ -54,4 +54,4 @@ jobs:
     - name: Commit change # if utests passed
       if: ${{ success() }}
       run: |
-        actions/create-pull-request@v3
+        develop/create-pull-request@v3
