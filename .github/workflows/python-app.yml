@@ -19,7 +19,7 @@ on:
 
 jobs:
   tests:
-    name: build-docker
+    name:
 
     runs-on: ubuntu-latest
 
