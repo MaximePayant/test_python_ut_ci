@@ -53,4 +53,6 @@ jobs:
 
     - name: Create pull request # if utests passed
       if: ${{ success() }}
-      uses: peter-evans/create-pull-request/develop@v4
+      with:
+        branch: develop
+      uses: peter-evans/create-pull-request@v4
