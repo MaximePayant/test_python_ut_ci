@@ -53,7 +53,9 @@ jobs:
 
     - name: Create pull request # if utests passed
       if: ${{ success() }}
-      uses: devops-infra/action-pull-request@v0.4.2
+      uses: repo-sync/pull-request@v2
       with:
+        destination_branch: "master"
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        title: Automatic pull request
+        pr_label: "feature, automated pr"
+        pr_title: "[Example] Simple demo"
