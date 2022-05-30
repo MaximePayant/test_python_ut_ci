@@ -53,6 +53,20 @@ jobs:
 
     - name: Create pull request # if utests passed
       if: ${{ success() }}
+      uses: devops-infra/action-pull-request@v0.4.2
       with:
-        branch: develop
-      uses: peter-evans/create-pull-request@v4
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        source_branch: master
+        target_branch: develop
+        title: My pull request
+        template: .github/PULL_REQUEST_TEMPLATE.md
+        body: "**Automated pull request**"
+        reviewer: MaximePayant
+        assignee: MaximePayant
+        label: enhancement
+        milestone: My milestone
+        draft: true
+        old_string: "<!-- Add your description here -->"
+        new_string: "** Automatic pull request**"
+        get_diff: true
+        ignore_users: "dependabot"
