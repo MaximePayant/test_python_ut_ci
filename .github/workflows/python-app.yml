@@ -15,11 +15,12 @@ name: Python application
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
 
 jobs:
   tests:
-    name:
+    name: Pytest
 
     runs-on: ubuntu-latest
 
