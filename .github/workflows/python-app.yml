@@ -60,6 +60,7 @@ jobs:
           git commit -m "Add changes"
 
     - name: Push changes # Push files into develop branch
+      if: ${{ success() }}
       uses: ad-m/github-push-action@develop
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
