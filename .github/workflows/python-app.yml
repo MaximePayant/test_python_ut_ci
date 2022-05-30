@@ -19,29 +19,48 @@ on:
       - master
 
 jobs:
-  tests:
-    name: Pytest
+  utests:
+    name: Run Pytest
 
     runs-on: ubuntu-latest
 
     steps:
+
     - name: Check out code
       uses: actions/checkout@v3
+
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
         python-version: '3.x'
+
     - name: Install dependencies
-      run: pip install -r requirements.txt
-           pip install pytest
-           pip install pytest-cov
+      run: |
+        pip install -r requirements.txt
+        pip install pytest
+        pip install pytest-cov
+
     - name: Start Unit Test
       run: |
-        ./utests.sh
+        pytest --doctest-modules --junitxml=junit/test-results.xml --cov="./utests/" -cov-report=xml --cov-report=html
+
     - name: Upload Unit Test results
+      if: ${{ always() }}
       uses: actions/upload-artifact@v3
       with:
         name: pytest-results
         path: ./htmlcov/
-      # Use always() to always run this step to publish test results when there are test failures
-      if: ${{ always() }}
+
+    - name: Commit change # if utests passed
+      if: ${{ success() }}
+      run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "Add changes"
+
+    - name: Push changes #push files into develop branch
+        uses: ad-m/github-push-action@develop
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: true
