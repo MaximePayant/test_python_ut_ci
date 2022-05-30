@@ -51,7 +51,6 @@ jobs:
         name: pytest-results
         path: ./htmlcov/
 
-    - name: Commit change # if utests passed
+    - name: Create pull request # if utests passed
       if: ${{ success() }}
-      run: |
-        develop/create-pull-request@v3
+      uses: peter-evans/create-pull-request@v4
