@@ -56,9 +56,9 @@ jobs:
       uses: devops-infra/action-pull-request@v0.4.2
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        source_branch: master
-        target_branch: develop
-        title: My pull request
+        source_branch: develop
+        target_branch: master
+        title: My First Pull Request
         template: .github/PULL_REQUEST_TEMPLATE.md
         body: "**Automated pull request**"
         reviewer: MaximePayant
