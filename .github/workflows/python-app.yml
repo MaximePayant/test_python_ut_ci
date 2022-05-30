@@ -56,17 +56,4 @@ jobs:
       uses: devops-infra/action-pull-request@v0.4.2
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        source_branch: develop
-        target_branch: master
-        title: My First Pull Request
-        template: .github/PULL_REQUEST_TEMPLATE.md
-        body: "**Automated pull request**"
-        reviewer: MaximePayant
-        assignee: MaximePayant
-        label: enhancement
-        milestone: My milestone
-        draft: true
-        old_string: "<!-- Add your description here -->"
-        new_string: "** Automatic pull request**"
-        get_diff: false
-        ignore_users: "dependabot"
+        title: Automatic pull request
