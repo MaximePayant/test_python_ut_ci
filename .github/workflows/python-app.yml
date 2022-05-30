@@ -16,7 +16,7 @@ name: Python application
 on:
   push:
     branches:
-      - master
+      - develop
 
 jobs:
   utests:
@@ -53,20 +53,9 @@ jobs:
 
     - name: Create pull request # if utests passed
       if: ${{ success() }}
-      uses: devops-infra/action-pull-request@v0.4.2
+      uses: repo-sync/pull-request@v2
       with:
+        destination_branch: "master"
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        source_branch: master
-        target_branch: develop
-        title: My pull request
-        template: .github/PULL_REQUEST_TEMPLATE.md
-        body: "**Automated pull request**"
-        reviewer: MaximePayant
-        assignee: MaximePayant
-        label: enhancement
-        milestone: My milestone
-        draft: true
-        old_string: "<!-- Add your description here -->"
-        new_string: "** Automatic pull request**"
-        get_diff: true
-        ignore_users: "dependabot"
+        pr_label: "feature, automated pr"
+        pr_title: "[Example] Simple demo"
