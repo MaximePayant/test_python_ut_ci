@@ -57,4 +57,4 @@ jobs:
       with:
         destination_branch: "master"
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        pr_assignee: MaximePayant
+        pr_assignee: ${{ github.event.actor }}
