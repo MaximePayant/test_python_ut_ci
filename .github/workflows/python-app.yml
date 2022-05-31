@@ -58,6 +58,4 @@ jobs:
       with:
         destination_branch: "master"
         github_token: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        echo "The name of the pusher: ${{ github.event.pusher.name }}"
-        echo "The email of the pusher: ${{ github.event.pusher.email }}"
+        pr_assignee: ${{ github.event.pusher.name }}"
