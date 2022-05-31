@@ -57,4 +57,4 @@ jobs:
       with:
         destination_branch: "master"
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        pr_assignee: ${{ github.event.pusher.name }}"
+        pr_assignee: ${{ github.event.pusher.name }}
