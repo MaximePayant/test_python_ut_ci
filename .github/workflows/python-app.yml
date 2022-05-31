@@ -27,7 +27,6 @@ jobs:
     steps:
 
     - name: Check out code
-      description: Checkout the last commit
       uses: actions/checkout@v3
 
     - name: Set up Python
