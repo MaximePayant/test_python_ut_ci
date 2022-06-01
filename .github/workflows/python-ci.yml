@@ -20,13 +20,12 @@ name: Python application
 env:
   UTESTS_PATH: ./utests/
   ASSIGNEES: MaximePayant
-  PR_SOURCE_BRANCH: develop
   PR_TARGET_BRANCH: master
 
 on:
   push:
     branches:
-      - ${{ env.PR_SOURCE_BRANCH }}
+      - develop
 
 jobs:
   utests:
