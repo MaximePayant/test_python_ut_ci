@@ -46,9 +46,9 @@ jobs:
     - name: Setup Virtual Environnement
       if: ${{ success() }}
       run: |
-        pip install virtualenv
-        virtualenv ./
-        source ./bin/activate
+        pip install --upgrade pip
+        python3.8 -m venv env
+        source env/bin/activate
 
     - name: Install dependencies
       if: ${{ success() }}
