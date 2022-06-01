@@ -1,0 +1,81 @@
+##
+# Society: ARKultur
+# ARKultur EIP, 2022
+#
+# Author:
+# Maxime P.
+# File name:
+# python-ci.yml
+#
+# Description:
+# This Github Actions test the code push on the "test" branch with the
+# unit-tests in the "utests" folder.
+#
+# If all the unit-tests passed, then the workflow create a pull request to
+# the "develop" branch, with the same information as the last commit.
+##
+
+name: Python application
+description: |
+  This Github Actions test the code push on the "test" branch with the
+  unit-tests in the "utests" folder.
+  If all the unit-tests passed, then the workflow create a pull request to
+  the "develop" branch, with the same information as the last commit.
+branding:
+  icon: "git-pull-request"
+  color: "blue"
+
+env:
+  UTESTS_PATH: ./utests/
+  ASSIGNEES: MaximePayant
+  PR_SOURCE_BRANCH: develop
+  PR_TARGET_BRANCH: master
+
+on:
+  push:
+    branches:
+      - ${{ env.PR_SOURCE_BRANCH }}
+
+jobs:
+  utests:
+    name: Run Pytest
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install pytest
+        pip install pytest-cov
+
+    # Run Pytest and get coverage
+    - name: Start Unit Test
+      run: |
+        pytest --doctest-modules --junitxml=junit/test-results.xml --cov=$UTESTS_PATH -cov-report=xml --cov-report=html
+
+    # Create artifacts with the unit-tests result
+    - name: Upload Unit Test results
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v3
+      with:
+        name: pytest-results
+        path: ./htmlcov/
+
+    # Create a pull request only if the previous unit-tests passed
+    - name: Create pull request
+      if: ${{ success() }}
+      uses: repo-sync/pull-request@v2
+      with:
+        destination_branch: $PR_TARGET_BRANCH
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        pr_assignee: $ASSIGNEES
