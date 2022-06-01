@@ -34,7 +34,7 @@ env:
 on:
   push:
     branches:
-      - ${{ env.PR_SOURCE_BRANCH }}
+      - $PR_SOURCE_BRANCH
 
 jobs:
   utests:
