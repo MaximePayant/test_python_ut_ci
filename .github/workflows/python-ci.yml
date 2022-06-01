@@ -1,17 +1,26 @@
 ##
 # Society: ARKultur
-# ARKultur EIP, 2021
+# ARKultur EIP, 2022
 #
 # Author:
 # Maxime P.
 # File name:
-# python-app.yml
+# python-ci.yml
 #
 # Description:
-# [Change]
+# This Github Actions test the code push on the "test" branch with the
+# unit-tests in the "utests" folder.
+#
+# If all the unit-tests passed, then the workflow create a pull request to
+# the "develop" branch, with the same information as the last commit.
 ##
 
 name: Python application
+
+env:
+  UTESTS_PATH: ./utests/
+  ASSIGNEES: MaximePayant
+  PR_TARGET_BRANCH: master
 
 on:
   push:
@@ -40,10 +49,12 @@ jobs:
         pip install pytest
         pip install pytest-cov
 
+    # Run Pytest and get coverage
     - name: Start Unit Test
       run: |
-        pytest --doctest-modules --junitxml=junit/test-results.xml --cov="./utests/" -cov-report=xml --cov-report=html
+        pytest --doctest-modules --junitxml=junit/test-results.xml --cov=$UTESTS_PATH -cov-report=xml --cov-report=html
 
+    # Create artifacts with the unit-tests result
     - name: Upload Unit Test results
       if: ${{ always() }}
       uses: actions/upload-artifact@v3
@@ -51,11 +62,11 @@ jobs:
         name: pytest-results
         path: ./htmlcov/
 
-    - name: Create pull request # if utests passed
+    # Create a pull request only if the previous unit-tests passed
+    - name: Create pull request
       if: ${{ success() }}
       uses: repo-sync/pull-request@v2
       with:
-        destination_branch: "master"
+        destination_branch: ${{ env.PR_TARGET_BRANCH }}
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        pr_label: "feature, automated pr"
-        pr_title: "[Example] Simple demo"
+        pr_assignee: ${{ env.ASSIGNEES }}
