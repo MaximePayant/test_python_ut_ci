@@ -16,14 +16,6 @@
 ##
 
 name: Python application
-description: |
-  This Github Actions test the code push on the "test" branch with the
-  unit-tests in the "utests" folder.
-  If all the unit-tests passed, then the workflow create a pull request to
-  the "develop" branch, with the same information as the last commit.
-branding:
-  icon: "git-pull-request"
-  color: "blue"
 
 env:
   UTESTS_PATH: ./utests/
