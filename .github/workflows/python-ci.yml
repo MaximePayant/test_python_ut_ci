@@ -70,4 +70,4 @@ jobs:
       with:
         destination_branch: "$PR_TARGET_BRANCH"
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        pr_assignee: "$ASSIGNEES"
+        pr_assignee: ${{ env.ASSIGNEES }}
