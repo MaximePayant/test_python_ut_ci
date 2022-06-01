@@ -43,7 +43,15 @@ jobs:
       with:
         python-version: '3.x'
 
+    - name: Setup Virtual Environnement
+      if: ${{ success() }}
+      run: |
+        pip install --upgrade pip
+        python3.8 -m venv env
+        source env/bin/activate
+
     - name: Install dependencies
+      if: ${{ success() }}
       run: |
         pip install -r requirements.txt
         pip install pytest
@@ -51,6 +59,7 @@ jobs:
 
     # Run Pytest and get coverage
     - name: Start Unit Test
+      if: ${{ success() }}
       run: |
         pytest --doctest-modules --junitxml=junit/test-results.xml --cov=$UTESTS_PATH -cov-report=xml --cov-report=html
 
