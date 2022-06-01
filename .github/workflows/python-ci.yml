@@ -71,10 +71,6 @@ jobs:
         name: pytest-results
         path: ./htmlcov/
 
-    - name: Quit Virtual environnement
-      run: |
-        deactivate
-
     # Create a pull request only if the previous unit-tests passed
     - name: Create pull request
       if: ${{ success() }}
